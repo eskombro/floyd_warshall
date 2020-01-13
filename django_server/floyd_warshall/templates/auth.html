@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+
+{% block title %}
+Sign In
+{% endblock %}
+
+{% block content %}
+
+<div>
+	<h1>Floyd Warshall Algorithm</h1>
+	<h4>Samuel Jimenez</h4>
+</div>
+
+<div id="content" class="contentContainer">
+	{% load bootstrap4 %}
+
+	{% if user.is_authenticated %}
+	<div class="formDiv">
+		<form action="/logout" method="post">
+			{% csrf_token %}
+			{% load bootstrap4 %}
+			{% buttons %}
+			Logged in as {{ user }}<br/><br/>
+			<button type="submit" class="btn btn-primary">
+				Logout
+			</button>
+			{% endbuttons %}
+		</form>
+	</div>
+
+	{% else %}
+	<div class="formDiv">
+		<form action="" method="post">
+			{% csrf_token %}
+			{% load bootstrap4 %}
+			{% bootstrap_form form %}
+			{% buttons %}
+			<button type="submit" class="btn btn-primary">
+				Login
+			</button>
+			{% endbuttons %}
+		</form>
+	</div>
+	{% endif%}
+</div>
+
+{% endblock %}

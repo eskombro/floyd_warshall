@@ -1,0 +1,30 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+
+		{% load static %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		{% load bootstrap4 %}
+		{% bootstrap_css %}
+		{% bootstrap_javascript %}
+		{% bootstrap_messages %}
+		<link rel="stylesheet" href="{% static "css/style.css" %}">
+		{% block style %}{% endblock %}
+	</head>
+
+	<body>
+
+		<div class="container-fluid contentContainer">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+
+</html>
