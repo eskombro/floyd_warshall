@@ -1,5 +1,5 @@
-from Graph import Graph
-from Parser import Parser
+from floyd_warshall.algo.Graph import Graph
+from floyd_warshall.algo.Parser import Parser
 
 
 def launch_floyd_warshall(csv):
@@ -10,18 +10,9 @@ def launch_floyd_warshall(csv):
     graph = Graph(data.size)
     for l in data.links:
         graph.add_link(l['src'], l['dst'], l['weight'])
+    for k in range(graph.size):
+        for i in range(graph.size):
+            for j in range(graph.size):
+                graph.tab[i][j] = min(
+                    graph.tab[i][j], graph.tab[i][k] + graph.tab[k][j])
     return (graph.tab)
-
-
-if __name__ == '__main__':
-    csv = '''4
-    7
-    1,2,3
-    2,3,2
-    3,4,1
-    3,1,5
-    4,1,2
-    2,1,8
-    1,4,7
-    '''
-    print(launch_floyd_warshall(csv))

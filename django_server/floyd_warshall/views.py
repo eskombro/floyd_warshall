@@ -3,7 +3,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from floyd_warshall.algo import launch_floyd_warshall
+from floyd_warshall.algo.algo import launch_floyd_warshall
+import json
 
 
 def home(request):
@@ -36,4 +37,8 @@ def handle_logout(request):
 def floyd_warshall(request):
     if not request.user.is_authenticated:
         return HttpResponse('Unauthorized', status=401)
-    return HttpResponse(launch_floyd_warshall())
+    data = json.loads(request.body)
+    if 'data' not in data:
+        return HttpResponse("Couldn't find \"data\" field in request body", status=400)
+    csv = data['data']
+    return HttpResponse(launch_floyd_warshall(csv))
