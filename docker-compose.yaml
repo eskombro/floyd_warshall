@@ -2,8 +2,6 @@ version: '3'
 services:
     server:
         build: server/.
-        ports:
-            - "8000:8000"
         command: sh runprod.sh
     nginx:
       restart: always
