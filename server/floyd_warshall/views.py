@@ -25,9 +25,10 @@ def handle_auth(request):
     return HttpResponse('Bad request', status=400)
 
 
+@csrf_exempt
 def handle_logout(request):
     logout(request)
-    return redirect('/authenticate')
+    return HttpResponse('logged out')
 
 
 @require_http_methods(["POST"])
@@ -39,4 +40,4 @@ def floyd_warshall(request):
         return HttpResponse("Couldn't find \"data\" field in request body", status=400)
     csv = data['data']
     res = launch_floyd_warshall(csv)
-    return HttpResponse(json.dumps({"result": res}))
+    return HttpResponse(json.dumps({"result": str(res)}))
