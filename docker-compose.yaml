@@ -1,0 +1,14 @@
+version: '3'
+services:
+    server:
+        build: server/.
+        ports:
+            - "8000:8000"
+        command: bash -c "python manage.py migrate && gunicorn main_project.wsgi -b 0.0.0.0:8000"
+    nginx:
+      restart: always
+      build: ./server/nginx/
+      ports:
+        - "8080:80"
+      links:
+        - server

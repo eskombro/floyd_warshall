@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import redirect, HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_http_methods
@@ -12,20 +12,17 @@ def home(request):
 
 
 @csrf_exempt
+@require_http_methods(["POST"])
 def handle_auth(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            d = form.cleaned_data
-            user = authenticate(username=d['username'], password=d['password'])
-            if user is not None:
-                login(request, user)
-                return HttpResponse('OK', status=200)
-            return HttpResponse('Unauthorized', status=401)
-        return HttpResponse('Bad request', status=400)
-    else:
-        form = AuthenticationForm()
-        return render(request, 'auth.html', {'form': form})
+    form = AuthenticationForm(data=request.POST)
+    if form.is_valid():
+        d = form.cleaned_data
+        user = authenticate(username=d['username'], password=d['password'])
+        if user is not None:
+            login(request, user)
+            return HttpResponse('OK', status=200)
+        return HttpResponse('Unauthorized', status=401)
+    return HttpResponse('Bad request', status=400)
 
 
 def handle_logout(request):
