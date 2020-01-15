@@ -3,14 +3,11 @@ import math
 
 class Graph():
     size = 0
+    links = []
     tab = []
 
-    def __init__(self, size):
-        self.size = size
-        self.tab = []
-        self.initialize_tab()
-
     def initialize_tab(self):
+        self.tab = []
         for x in range(self.size):
             self.tab.append([])
             for y in range(self.size):

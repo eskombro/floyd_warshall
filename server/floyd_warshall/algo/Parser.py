@@ -1,14 +1,14 @@
 class Parser():
-    size = 0
-    links = []
+    graph = None
 
-    def __init__(self, csv):
-        self.links = []
+    def __init__(self, csv, graph):
+        self.graph = graph
+        graph.links = []
         csv_lines = csv.split('\n')
         if len(csv_lines) < 2:
             raise Exception("csv is not well formated")
-        self.size = int(csv_lines[0])
-        if self.size < 2:
+        graph.size = int(csv_lines[0])
+        if graph.size < 2:
             raise Exception("Graph size can't be smaller than 2")
         links_count = int(csv_lines[1])
         if len(csv_lines) != links_count + 2:
@@ -26,7 +26,7 @@ class Parser():
             except Exception:
                 raise Exception(
                     "Error in element at line {}: {}".format(index, line))
-        self.links.append({
+        self.graph.links.append({
                 'src': line_data[0]-1,
                 'dst': line_data[1]-1,
                 'weight': line_data[2],

@@ -3,12 +3,13 @@ from floyd_warshall.algo.Parser import Parser
 
 
 def launch_floyd_warshall(csv):
+    graph = Graph()
     try:
-        data = Parser(csv)
+        Parser(csv, graph)
     except Exception as e:
         return e
-    graph = Graph(data.size)
-    for l in data.links:
+    graph.initialize_tab()
+    for l in graph.links:
         graph.add_link(l['src'], l['dst'], l['weight'])
     for k in range(graph.size):
         for i in range(graph.size):
