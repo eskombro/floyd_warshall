@@ -3,6 +3,7 @@ class Parser():
     links = []
 
     def __init__(self, csv):
+        self.links = []
         csv_lines = csv.split('\n')
         if len(csv_lines) < 2:
             raise Exception("csv is not well formated")

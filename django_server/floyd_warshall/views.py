@@ -41,4 +41,5 @@ def floyd_warshall(request):
     if 'data' not in data:
         return HttpResponse("Couldn't find \"data\" field in request body", status=400)
     csv = data['data']
-    return HttpResponse(launch_floyd_warshall(csv))
+    res = launch_floyd_warshall(csv)
+    return HttpResponse(json.dumps({"result": res}))
